@@ -43,4 +43,10 @@ public class VisitorDataBase {
 		}
 		return currentVisitorsList;
 	}
+	//this code just for test
+	public static void view() {
+		for(Visitor x:visitorsList) {
+			System.out.println("                           "+x.getId()+" "+x.getFreeTime());
+		}
+	}
 }

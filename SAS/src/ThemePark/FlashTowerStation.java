@@ -4,8 +4,8 @@ import java.time.LocalTime;
 
 public class FlashTowerStation extends RidesStation {
 	private int age = 12, height = 100, maxCapacity = 10;
-	private LocalTime startTime = LocalTime.of(14, 17), endTime = LocalTime.of(14, 00),
-			singleRideTime = LocalTime.of(0, 20);
+	private LocalTime startTime = LocalTime.of(8,0), endTime = LocalTime.of(20, 00),
+			singleRideTime = LocalTime.of(0, 1);
 
 	public FlashTowerStation() {
 		super.setMaxCapacity(this.maxCapacity);

@@ -14,10 +14,13 @@ public class StationManager {
 		this.ridesObj = ridesObj;
 		nextRideTime = ridesObj.getStartTime();
 		queueHandlerObj = new QueueHandler(ridesObj);
+		if (nextRideTime.isBefore(LocalTime.now())) {
+			nextRideTimeInitializer();
+		}
 	}
 
 	public void ride() {
-		System.out.println("Current ride : " + ridesObj.getRideName() + " at " + nextRideTime);
+		System.out.print("\nCurrent ride : " + ridesObj.getRideName() + " at " + nextRideTime);
 		setNextRideTime();
 		if (ridersList.isEmpty()) {
 			System.out.print(" is cancelled");
@@ -64,5 +67,11 @@ public class StationManager {
 
 	public LocalTime getEndTime() {
 		return ridesObj.getEndTime();
+	}
+
+	private void nextRideTimeInitializer() {
+		while (nextRideTime.isBefore(LocalTime.now())) {
+			nextRideTime = nextRideTime.plusMinutes(ridesObj.getSingleRideTime().getMinute());
+		}
 	}
 }

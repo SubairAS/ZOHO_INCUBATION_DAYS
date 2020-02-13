@@ -19,6 +19,7 @@ public class RidesReservation {
 	private static void ridesBooking(Visitor currentVisitor) {
 		System.out.println("Customer ID :" + currentVisitor.getId());
 		if (currentVisitor.getTicket().getTime().isBefore(LocalTime.now())) {
+			// This Hashmap holds StationManager Object and index number of them in database
 			HashMap<Integer, StationManager> availableRidesList = RidesManagerDataBase.getAvailableRides();
 			int index = 1;
 			for (Map.Entry<Integer, StationManager> entry : availableRidesList.entrySet()) {
@@ -32,7 +33,7 @@ public class RidesReservation {
 			System.out.println(index + 1 + " No plans");
 			label: {
 				int selection = sc.nextInt();
-				if (selection <= availableRidesList.size()+2) {
+				if (selection <= availableRidesList.size() + 2) {
 					if (selection <= availableRidesList.size()) {
 						StationManager selectedRide = availableRidesList.get(selection);
 						selectedRide.addRider(currentVisitor);

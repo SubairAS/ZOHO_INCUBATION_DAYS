@@ -1,4 +1,5 @@
 package ThemePark;
+
 import java.time.LocalTime;
 import java.util.Scanner;
 
@@ -38,7 +39,8 @@ public class Admin {
 			System.out.println(Canteen.getRevenue());
 			break;
 		case 3:
-			System.out.println(TicketCounter.getRevenue() + Canteen.getRevenue());
+			System.out.println("Counter Revenue " + TicketCounter.getRevenue() + "\nCanteen Revenue "
+					+ Canteen.getRevenue() + "\nTotal Revenue " + (Canteen.getRevenue() + TicketCounter.getRevenue()));
 			break;
 		}
 	}
@@ -55,27 +57,31 @@ public class Admin {
 		case 2:
 			RidesManagerDataBase.addNewRide(new FlashTowerStation(maxCapacity));
 			break;
-//		case 3:
-//			System.out.println("Ride Name?");
-//			String rideName = sc.nextLine();
-//			System.out.println("Min age alloted");
-//			int age = sc.nextInt();
-//			System.out.println("Min height alloted");
-//			int height = sc.nextInt();
-//			System.out.println("Max weight alloted");
-//			int weight = sc.nextInt();
-//			System.out.println("Start time? eg: for 1PM - 1300");
-//			int startTime = sc.nextInt();
-//			System.out.println("End Time?");
-//			int endTime = sc.nextInt();
-//			System.out.println("Single Ride Time?");
-//			int singleRideTime = sc.nextInt();
-//			RidesManagerDataBase.addNewRide(new NewStation.NewStationBuilder().setAge(age).setHeight(height)
-//					.setStartTime(LocalTime.of(startTime / 100, startTime % 100))
-//					.setEndTime(LocalTime.of(endTime / 100, endTime % 100))
-//					.setSingleRideTime(LocalTime.of(singleRideTime / 100, singleRideTime % 100)).setWeight(weight)
-//					.setMaxCapacity(maxCapacity).setRideName(rideName).getNewStationInstance());
-//			break;
+		case 3:
+			sc.nextLine();
+			System.out.println(RidesManagerDataBase.noOfRides());
+			System.out.println("Ride Name?");
+			String rideName = sc.nextLine();
+			System.out.println("Min age alloted");
+			int age = sc.nextInt();
+			System.out.println("Min height alloted");
+			int height = sc.nextInt();
+			System.out.println("Max weight alloted");
+			int weight = sc.nextInt();
+			System.out.println("Start time? eg: for 1PM - 1300");
+			int startTime = sc.nextInt();
+			System.out.println("End Time?");
+			int endTime = sc.nextInt();
+			System.out.println("Single Ride Time?");
+			int singleRideTime = sc.nextInt();
+			RidesManagerDataBase.addNewRide(new NewStation.NewStationBuilder().setAge(age).setHeight(height)
+					.setStartTime(LocalTime.of(startTime / 100, startTime % 100))
+					.setEndTime(LocalTime.of(endTime / 100, endTime % 100))
+					.setSingleRideTime(LocalTime.of(singleRideTime / 100, singleRideTime % 100)).setWeight(weight)
+					.setMaxCapacity(maxCapacity).setRideName(rideName).getNewStationInstance());
+			System.out.println("New Ride " + rideName + "added");
+			System.out.println(RidesManagerDataBase.noOfRides());
+			break;
 		}
 	}
 }

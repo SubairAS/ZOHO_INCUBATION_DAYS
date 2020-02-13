@@ -12,28 +12,46 @@ public class Manager {
 		ridesHandling();
 		TicketCounter.ticketVending();
 		while (LocalTime.now().isBefore(LocalTime.of(20, 0))) {
-			if (canAdminMakeChange) {
-				checkAdmin(LocalTime.now());
-			}
 			if (VisitorDataBase.isAnyVisitorsFree()) {
 				RidesReservation.reservationHelper();
 			}
+			if (canAdminMakeChange) {
+				checkAdmin(LocalTime.now());
+			}
+			try {
+				Thread.sleep(5000);
+			} catch (Exception e) {
+			}
+//			bugViewer();
 		}
 	}
 
+//	this code just for test
+//	private static void bugViewer() {
+//		System.out.println("       Clock              " + LocalTime.now().toString());
+//		System.out.println("xRides");
+//		RidesManagerDataBase.view();
+//		System.out.println();
+//		System.out.println("xVistors");
+//		VisitorDataBase.view();
+//		System.out.println();
+//	}
+
 	private static void ridesHandling() {
 		Thread rideStarterThread = new Thread(() -> {
-			ArrayList<StationManager> currentRidesList = RidesManagerDataBase.getCurrentRides();
-			if (currentRidesList.size() != 0) {
-				for (StationManager currentRide : currentRidesList) {
-					currentRide.ride();
+			while (LocalTime.now().isBefore(LocalTime.of(20, 0))) {
+				ArrayList<StationManager> currentRidesList = RidesManagerDataBase.getCurrentRides();
+				if (currentRidesList.size() != 0) {
+					for (StationManager currentRide : currentRidesList) {
+						currentRide.ride();
+					}
+					canAdminMakeChange = true;
 				}
-				canAdminMakeChange = true;
-			}
-			try {
-				Thread.sleep(60000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		rideStarterThread.start();

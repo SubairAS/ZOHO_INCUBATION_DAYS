@@ -44,6 +44,7 @@ public class Canteen {
 			int bill = foodsList.get(selection).getFoodPrice() * size;
 			if (visitor.payment(bill)) {
 				CanteenDataBase.deccreaseFoodLoad(selection, size);
+				canteenRevenue+=bill;
 			}
 			sc.nextLine();
 			System.out.println("Want to buy more? N to cancel");

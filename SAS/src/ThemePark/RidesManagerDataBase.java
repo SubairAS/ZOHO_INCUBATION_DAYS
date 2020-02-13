@@ -24,7 +24,8 @@ public class RidesManagerDataBase {
 
 	public static boolean isThisRideTime() {
 		for (StationManager current : managersList) {
-			if (LocalTime.now().isBefore(current.getNextRideTime())) {
+			if (current.getNextRideTime().getHour() == (LocalTime.now().getHour())
+					&& current.getNextRideTime().getMinute() == (LocalTime.now().getMinute())) {
 				return true;
 			}
 		}
@@ -59,5 +60,12 @@ public class RidesManagerDataBase {
 
 	public static void addNewRide(RidesStation newRidesObj) {
 		managersList.add(new StationManager(newRidesObj));
+	}
+
+	//this code just for test
+	public static void view() {
+		for (StationManager x : managersList) {
+			System.out.println("                           "+x.getRideName() + " " + x.getNextRideTime().toString());
+		}
 	}
 }
