@@ -36,9 +36,8 @@ public class RidesManagerDataBase {
 		int index = 1;
 		for (StationManager current : managersList) {
 			if (LocalTime.now().isBefore(current.getNextRideTime())) {
-				temporaryList.put(index, current);
+				temporaryList.put(index++, current);
 			}
-			index++;
 		}
 		return temporaryList;
 	}

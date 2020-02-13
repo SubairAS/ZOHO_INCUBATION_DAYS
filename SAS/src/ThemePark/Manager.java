@@ -9,13 +9,11 @@ public class Manager {
 	private static boolean canAdminMakeChange = true;
 
 	public static void themeParkManagement() {
+		ridesHandling();
 		TicketCounter.ticketVending();
 		while (LocalTime.now().isBefore(LocalTime.of(20, 0))) {
 			if (canAdminMakeChange) {
 				checkAdmin(LocalTime.now());
-			}
-			if (RidesManagerDataBase.isThisRideTime()) {
-				ridesStarter();
 			}
 			if (VisitorDataBase.isAnyVisitorsFree()) {
 				RidesReservation.reservationHelper();
@@ -23,14 +21,22 @@ public class Manager {
 		}
 	}
 
-	private static void ridesStarter() {
-		ArrayList<StationManager> currentRidesList = RidesManagerDataBase.getCurrentRides();
-		if (currentRidesList.size() != 0) {
-			for (StationManager currentRide : currentRidesList) {
-				currentRide.ride();
+	private static void ridesHandling() {
+		Thread rideStarterThread = new Thread(() -> {
+			ArrayList<StationManager> currentRidesList = RidesManagerDataBase.getCurrentRides();
+			if (currentRidesList.size() != 0) {
+				for (StationManager currentRide : currentRidesList) {
+					currentRide.ride();
+				}
+				canAdminMakeChange = true;
 			}
-			canAdminMakeChange = true;
-		}
+			try {
+				Thread.sleep(60000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		rideStarterThread.start();
 	}
 
 	private static void checkAdmin(LocalTime time) {
