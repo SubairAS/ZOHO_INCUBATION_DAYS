@@ -8,8 +8,8 @@ public class PremiumTicket extends Ticket {
 
 	public PremiumTicket(int id, String personType) {
 		super.setDate(LocalDate.now());
-		super.setId(id);
 		super.setTime(LocalTime.now());
+		super.setId(id);
 		super.setTicketPrice(this.ticketPrice);
 		super.setPersonType(personType);
 		super.setPriority(this.priority);

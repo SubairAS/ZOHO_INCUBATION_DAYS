@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class RidesManagerDataBase {
 	private static ArrayList<StationManager> managersList = new ArrayList<StationManager>();
+
 	static {
 		managersList.add(new StationManager(new RollerCoasterStation()));
 		managersList.add(new StationManager(new FlashTowerStation()));
@@ -21,11 +22,20 @@ public class RidesManagerDataBase {
 		return null;
 	}
 
+	public static boolean isThisRideTime() {
+		for (StationManager current : managersList) {
+			if (LocalTime.now().isBefore(current.getNextRideTime())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static HashMap<Integer, StationManager> getAvailableRides() {
 		HashMap<Integer, StationManager> temporaryList = new HashMap<Integer, StationManager>();
 		int index = 1;
 		for (StationManager current : managersList) {
-			if (LocalTime.now().isBefore(current.getEndTime())) {
+			if (LocalTime.now().isBefore(current.getNextRideTime())) {
 				temporaryList.put(index, current);
 			}
 			index++;

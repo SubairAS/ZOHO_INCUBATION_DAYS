@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class TicketCounter {
 	private static Scanner scanner = new Scanner(System.in);
-	private static int id = 1;
+	private static int id = 1, revenue = 0;
 
 	public static void ticketVending() {
 		System.out.println("Age");
@@ -38,7 +38,13 @@ public class TicketCounter {
 		}
 		String personType = (age >= 15 || height >= 150) ? "ADULT" : "CHILDREN";
 		System.out.println("Your Ticket ID is: " + id);
-		VisitorDataBase.addVisitor(new Visitor.VisitorBuilder(id++).setAge(age).setCredits(credits).setHeight(height)
-				.setWeight(weight).setTicket(personType, ticketType).getVisitor());
+		Visitor newVisitor = new Visitor.VisitorBuilder(id++).setAge(age).setCredits(credits).setHeight(height)
+				.setWeight(weight).setTicket(personType, ticketType).getVisitor();
+		revenue += newVisitor.getTicket().getTicketPrice();
+		VisitorDataBase.addVisitor(newVisitor);
+	}
+
+	public static int getRevenue() {
+		return revenue;
 	}
 }

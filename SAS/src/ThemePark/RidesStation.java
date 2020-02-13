@@ -52,8 +52,6 @@ public abstract class RidesStation {
 		this.rideName = rideName;
 	}
 
-	abstract public boolean canVisitorRide(Visitor currentVisitor);
-
 	protected boolean isFull() {
 		if (availableSpace != 0) {
 			return false;
@@ -65,4 +63,5 @@ public abstract class RidesStation {
 		availableSpace++;
 	}
 
+	abstract public boolean canVisitorRide(Visitor currentVisitor);
 }

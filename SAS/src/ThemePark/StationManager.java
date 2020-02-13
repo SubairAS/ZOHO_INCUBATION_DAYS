@@ -18,10 +18,12 @@ public class StationManager {
 
 	public void ride() {
 		System.out.println("Current ride : " + ridesObj.getRideName() + " at " + nextRideTime);
-
-		Collections.sort(ridersList, (visitor1, visitor2) -> {
-			return ((visitor1.getTicket().getPriority() < visitor1.getTicket().getPriority()) ? 1 : -1);
-		});
+		setNextRideTime();
+		if (ridersList.isEmpty()) {
+			System.out.print(" is cancelled");
+			return;
+		}
+		sortByPriority();
 
 		ArrayList<Visitor> validRidersList = queueHandlerObj.queueArrangement(ridersList);
 
@@ -30,7 +32,17 @@ public class StationManager {
 			System.out.print(currentRider.getId() + " ");
 			currentRider.updateFreeTime(LocalTime.now().plusMinutes(ridesObj.getSingleRideTime().getMinute()));
 		}
+		System.out.println();
+	}
 
+	private void sortByPriority() {
+		Collections.sort(ridersList, (visitor1, visitor2) -> {
+			return ((visitor1.getTicket().getPriority() < visitor1.getTicket().getPriority()) ? 1 : -1);
+		});
+
+	}
+
+	private void setNextRideTime() {
 		nextRideTime = nextRideTime.plusMinutes(ridesObj.getSingleRideTime().getMinute());
 		if (nextRideTime.getHour() == (ridesObj.getEndTime().getHour())
 				&& nextRideTime.getMinute() == (ridesObj.getEndTime().getMinute())) {

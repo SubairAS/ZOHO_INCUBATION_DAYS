@@ -21,12 +21,14 @@ public class Canteen {
 				System.out.println((index++) + " " + currentFood.getFoodName() + " - Rs." + currentFood.getFoodLoad());
 			}
 			int selection = sc.nextInt() - 1;
+			label:{
 			while (true) {
-				if (selection >= foodsList.size()) {
-					break;
+				if (selection <= foodsList.size()) {
+					break label;
 				} else {
 					System.out.println("Invalid Selection");
 				}
+			}
 			}
 			int size = 0;
 			while (true) {

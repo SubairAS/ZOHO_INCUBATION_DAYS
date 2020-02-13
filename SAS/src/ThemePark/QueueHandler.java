@@ -20,6 +20,8 @@ public class QueueHandler {
 				validRidersList.add(currentVisitor);
 				ridesObj.updateAvailableSpace();
 			} else {
+				System.out.println("Hey! (Customer Id-" + currentVisitor.getId() + ") You are not eligble for this "
+						+ ridesObj.getRideName() + " ride. Get Out!");
 				ridersList.remove(currentVisitor);
 				currentVisitor.updateFreeTime(LocalTime.now());
 			}

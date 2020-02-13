@@ -23,6 +23,15 @@ public class VisitorDataBase {
 //		}
 //		return null;
 //	}
+	public static boolean isAnyVisitorsFree() {
+		for (Visitor currentVisitor : visitorsList) {
+			if (currentVisitor.getFreeTime().getHour() == (LocalTime.now().getHour())
+					&& currentVisitor.getFreeTime().getMinute() == (LocalTime.now().getMinute())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static ArrayList<Visitor> getVisitorsListAtTime() {
 		ArrayList<Visitor> currentVisitorsList = new ArrayList<Visitor>();
