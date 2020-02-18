@@ -20,6 +20,34 @@ public class RollerCoasterStation extends RidesStation {
 		super.setMaxCapacity(this.maxCapacity = maxCapacity);
 	}
 
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public void setStartTime(LocalTime startTime) {
+		super.setStartTime(this.startTime = startTime);
+	}
+
+	public void setEndTime(LocalTime endTime) {
+		super.setEndTime(this.endTime = endTime);
+	}
+
+	public void setSingleRideTime(LocalTime singleRideTime) {
+		super.setSingleRideTime(this.singleRideTime = singleRideTime);
+	}
+
+	public void setMaxCapacity(int maxCapacity) {
+		super.setMaxCapacity(this.maxCapacity = maxCapacity);
+	}
+
 	public boolean canVisitorRide(Visitor currentVisitor) {
 		if (age <= currentVisitor.getAge() && height <= currentVisitor.getHeight()
 				&& weight >= currentVisitor.getWeight()) {

@@ -17,6 +17,34 @@ public class NewStation extends RidesStation {
 		super.setRideName(rideName);
 	}
 
+	public void setStartTime(LocalTime startTime) {
+		super.setStartTime(startTime);
+	}
+
+	public void setEndTime(LocalTime endTime) {
+		super.setEndTime(endTime);
+	}
+
+	public void setSingleRideTime(LocalTime singleRideTime) {
+		super.setSingleRideTime(singleRideTime);
+	}
+
+	public void setMaxCapacity(int maxCapacity) {
+		super.setMaxCapacity(maxCapacity);
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
 	public boolean canVisitorRide(Visitor currentVisitor) {
 		if (age < currentVisitor.getAge() && height < currentVisitor.getHeight()
 				&& weight > currentVisitor.getWeight()) {

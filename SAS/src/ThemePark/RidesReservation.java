@@ -19,7 +19,7 @@ public class RidesReservation {
 		for (Visitor currentVisitor : visitorsList) {
 			if (currentVisitor.getFreeTime().getHour() == (LocalTime.now().getHour())
 					&& (currentVisitor.getFreeTime().getMinute() == (LocalTime.now().getMinute()) || currentVisitor
-							.getFreeTime().getMinute() == (LocalTime.now().plusMinutes(1).getMinute()))) {
+							.getFreeTime().plusMinutes(1).getMinute() == (LocalTime.now().getMinute()))) {
 				currentVisitorsList.add(currentVisitor);
 			}
 		}

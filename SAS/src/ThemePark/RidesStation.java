@@ -67,5 +67,11 @@ public abstract class RidesStation {
 		availableSpace++;
 	}
 
+	abstract public void setAge(int age);
+
+	abstract public void setHeight(int height);
+
+	abstract public void setWeight(int weight);
+
 	abstract public boolean canVisitorRide(Visitor currentVisitor);
 }

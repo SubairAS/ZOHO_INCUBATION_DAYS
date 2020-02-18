@@ -1,8 +1,7 @@
 package ThemePark;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Admin {
 	private static Scanner sc = new Scanner(System.in);
@@ -12,8 +11,8 @@ public class Admin {
 			while (true) {
 				label: {
 					while (true) {
-						System.out.println(
-								"1.Add new rider(s)\n2.Add new Ride?\n3.Check - Revenue for the day\n4.Rides Details\n5.Exit");
+						System.out.println("1.Add new rider(s)\n2.Add new Ride?\n"
+								+ "3.Check - Revenue for the day\n4.Rides Details\n" + "5.Configure Rides\n6.Exit");
 						int selection = sc.nextInt();
 						switch (selection) {
 						case 1:
@@ -29,6 +28,9 @@ public class Admin {
 							getRidesDetails();
 							break label;
 						case 5:
+							configureRides();
+							break label;
+						case 6:
 							break adminlabel;
 						default:
 							System.out.println("Invalid Selection");
@@ -37,6 +39,17 @@ public class Admin {
 				}
 			}
 		}
+	}
+
+	private static void configureRides() {
+		ArrayList<StationManager> managersList = RidesManagerDataBase.getManagersList();
+		System.out.println("Which ride you want to configure?");
+		for (StationManager currentManager : managersList) {
+			System.out.println("Enter " + managersList.indexOf(currentManager) + " for " + currentManager.getRideName());
+		}
+		int selection = sc.nextInt();
+		StationManager selectedRide = managersList.get(selection);
+		selectedRide.configureThisRide();
 	}
 
 	private static void addNewRider() {
@@ -83,6 +96,8 @@ public class Admin {
 			RidesManagerDataBase.addNewRide(new FlashTowerStation(maxCapacity));
 			break;
 		case 3:
+			label:{
+			while(true) {
 			sc.nextLine();
 			System.out.println("Ride Name?");
 			String rideName = sc.nextLine();
@@ -98,13 +113,21 @@ public class Admin {
 			int endTime = sc.nextInt();
 			System.out.println("Single Ride Time?");
 			int singleRideTime = sc.nextInt();
+			try {
 			RidesManagerDataBase.addNewRide(new NewStation.NewStationBuilder().setAge(age).setHeight(height)
 					.setStartTime(LocalTime.of(startTime / 100, startTime % 100))
 					.setEndTime(LocalTime.of(endTime / 100, endTime % 100))
 					.setSingleRideTime(LocalTime.of(singleRideTime / 100, singleRideTime % 100)).setWeight(weight)
 					.setMaxCapacity(maxCapacity).setRideName(rideName).getNewStationInstance());
 			System.out.println("New Ride " + rideName + "added");
-			break;
+			break label;
+			}
+			catch(Exception e){
+				System.out.println("Invalid Time Input! Try Again!");
+			}
+			}
+		}
+		break;
 		}
 	}
 }
