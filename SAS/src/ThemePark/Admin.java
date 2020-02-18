@@ -1,6 +1,7 @@
 package ThemePark;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Admin {
@@ -11,21 +12,45 @@ public class Admin {
 			while (true) {
 				label: {
 					while (true) {
-						System.out.println("1.Add new Ride?\n2.Check - Revenue for the day\n3.Exit");
+						System.out.println(
+								"1.Add new rider(s)\n2.Add new Ride?\n3.Check - Revenue for the day\n4.Rides Details\n5.Exit");
 						int selection = sc.nextInt();
 						switch (selection) {
 						case 1:
-							addRide();
+							addNewRider();
 							break label;
 						case 2:
-							checkRevenue();
+							addRide();
 							break label;
 						case 3:
+							checkRevenue();
+							break label;
+						case 4:
+							getRidesDetails();
+							break label;
+						case 5:
 							break adminlabel;
+						default:
+							System.out.println("Invalid Selection");
 						}
 					}
 				}
 			}
+		}
+	}
+
+	private static void addNewRider() {
+		System.out.println("How many riders?");
+		int newRidersSize = sc.nextInt();
+		for (int i = 0; i < newRidersSize; i++) {
+			TicketCounter.ticketVending();
+		}
+	}
+
+	private static void getRidesDetails() {
+		ArrayList<StationManager> managersList = RidesManagerDataBase.getManagersList();
+		for (StationManager currentManager : managersList) {
+			System.out.println(currentManager + "\n");
 		}
 	}
 
@@ -59,7 +84,6 @@ public class Admin {
 			break;
 		case 3:
 			sc.nextLine();
-			System.out.println(RidesManagerDataBase.noOfRides());
 			System.out.println("Ride Name?");
 			String rideName = sc.nextLine();
 			System.out.println("Min age alloted");
@@ -80,7 +104,6 @@ public class Admin {
 					.setSingleRideTime(LocalTime.of(singleRideTime / 100, singleRideTime % 100)).setWeight(weight)
 					.setMaxCapacity(maxCapacity).setRideName(rideName).getNewStationInstance());
 			System.out.println("New Ride " + rideName + "added");
-			System.out.println(RidesManagerDataBase.noOfRides());
 			break;
 		}
 	}

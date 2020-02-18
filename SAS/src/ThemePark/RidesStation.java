@@ -39,6 +39,10 @@ public abstract class RidesStation {
 		return maxCapacity;
 	}
 
+	protected int getAvailableSpace() {
+		return availableSpace;
+	}
+
 	protected void setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
 		this.availableSpace = maxCapacity;

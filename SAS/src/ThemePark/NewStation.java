@@ -74,4 +74,11 @@ public class NewStation extends RidesStation {
 			return new NewStation(age, height, weight, maxCapacity, startTime, endTime, singleRideTime, rideName);
 		}
 	}
+
+	public String toString() {
+		return "Ride Name : " + getRideName() + "\nRide Start Time : " + getStartTime() + " || Ride End Time : "
+				+ getEndTime() + " || Ride Single Ride Time : " + getSingleRideTime() + "\nMaximumCapacity : "
+				+ getMaxCapacity() + " || Available Space : " + getAvailableSpace() + "\nMin age alloted : " + age
+				+ " || Min Height Alloted : " + height + " || Min Weight Alloted : " + weight;
+	}
 }

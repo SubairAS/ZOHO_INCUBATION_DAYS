@@ -18,17 +18,18 @@ public class Canteen {
 			System.out.println("Select Food");
 			int index = 1;
 			for (Food currentFood : foodsList) {
-				System.out.println((index++) + " " + currentFood.getFoodName() + " - Rs." + currentFood.getFoodLoad());
+				System.out.println((index++) + " " + currentFood.getFoodName() + " - Rs." + currentFood.getFoodPrice()
+						+ " Available Qty " + currentFood.getFoodLoad());
 			}
 			int selection = sc.nextInt() - 1;
-			label:{
-			while (true) {
-				if (selection <= foodsList.size()) {
-					break label;
-				} else {
-					System.out.println("Invalid Selection");
+			label: {
+				while (true) {
+					if (selection <= foodsList.size()) {
+						break label;
+					} else {
+						System.out.println("Invalid Selection");
+					}
 				}
-			}
 			}
 			int size = 0;
 			while (true) {
@@ -44,7 +45,7 @@ public class Canteen {
 			int bill = foodsList.get(selection).getFoodPrice() * size;
 			if (visitor.payment(bill)) {
 				CanteenDataBase.deccreaseFoodLoad(selection, size);
-				canteenRevenue+=bill;
+				canteenRevenue += bill;
 			}
 			sc.nextLine();
 			System.out.println("Want to buy more? N to cancel");
@@ -53,6 +54,9 @@ public class Canteen {
 				break;
 			}
 		}
+		System.out.println("Visitor Exit Time?");
+		int exitTime = sc.nextInt();
+		visitor.updateFreeTime(visitor.getFreeTime().plusMinutes(exitTime));
 	}
 
 	private static void checkFoodLoads() {

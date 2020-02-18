@@ -30,7 +30,7 @@ public class StationManager {
 
 		ArrayList<Visitor> validRidersList = queueHandlerObj.queueArrangement(ridersList);
 
-		System.out.println("Riders are :");
+		System.out.println("\nRiders are :");
 		for (Visitor currentRider : validRidersList) {
 			System.out.print(currentRider.getId() + " ");
 			currentRider.updateFreeTime(LocalTime.now().plusMinutes(ridesObj.getSingleRideTime().getMinute()));
@@ -69,9 +69,19 @@ public class StationManager {
 		return ridesObj.getEndTime();
 	}
 
+	public int availableSpace() {
+		return ridesObj.getAvailableSpace();
+	}
+
 	private void nextRideTimeInitializer() {
-		while (nextRideTime.isBefore(LocalTime.now())) {
+		while (nextRideTime.isBefore(LocalTime.now()) && (nextRideTime
+				.plusMinutes(ridesObj.getSingleRideTime().getMinute()).isBefore(ridesObj.getEndTime()))) {
 			nextRideTime = nextRideTime.plusMinutes(ridesObj.getSingleRideTime().getMinute());
+
 		}
+	}
+
+	public String toString() {
+		return ridesObj.toString() + "\n and Next Ride Time :" + nextRideTime;
 	}
 }

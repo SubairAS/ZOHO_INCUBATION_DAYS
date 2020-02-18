@@ -10,11 +10,8 @@ public class Manager {
 
 	public static void themeParkManagement() {
 		ridesHandling();
-		TicketCounter.ticketVending();
 		while (LocalTime.now().isBefore(LocalTime.of(20, 0))) {
-			if (VisitorDataBase.isAnyVisitorsFree()) {
 				RidesReservation.reservationHelper();
-			}
 			if (canAdminMakeChange) {
 				checkAdmin(LocalTime.now());
 			}
@@ -22,25 +19,13 @@ public class Manager {
 				Thread.sleep(5000);
 			} catch (Exception e) {
 			}
-//			bugViewer();
 		}
 	}
-
-//	this code just for test
-//	private static void bugViewer() {
-//		System.out.println("       Clock              " + LocalTime.now().toString());
-//		System.out.println("xRides");
-//		RidesManagerDataBase.view();
-//		System.out.println();
-//		System.out.println("xVistors");
-//		VisitorDataBase.view();
-//		System.out.println();
-//	}
 
 	private static void ridesHandling() {
 		Thread rideStarterThread = new Thread(() -> {
 			while (LocalTime.now().isBefore(LocalTime.of(20, 0))) {
-				ArrayList<StationManager> currentRidesList = RidesManagerDataBase.getCurrentRides();
+				ArrayList<StationManager> currentRidesList = getCurrentRides();
 				if (currentRidesList.size() != 0) {
 					for (StationManager currentRide : currentRidesList) {
 						currentRide.ride();
@@ -56,9 +41,20 @@ public class Manager {
 		});
 		rideStarterThread.start();
 	}
-
+	
+	private static ArrayList<StationManager> getCurrentRides() {
+		ArrayList<StationManager> managersList=RidesManagerDataBase.getManagersList();
+		ArrayList<StationManager> currentRidesList = new ArrayList<StationManager>();
+		for (StationManager current : managersList) {
+			if (current.getNextRideTime().getHour() == (LocalTime.now().getHour())
+					&& current.getNextRideTime().getMinute() == (LocalTime.now().getMinute())) {
+				currentRidesList.add(current);
+			}
+		}
+		return currentRidesList;
+	}
 	private static void checkAdmin(LocalTime time) {
-		System.out.println("Admin Controls? 1 to enter");
+		System.out.println("\nAdmin Controls? 1 to enter");
 		if (scanner.nextInt() == 1) {
 			Admin.actionDecider();
 		}
